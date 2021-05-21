@@ -8,14 +8,14 @@ import {
 import {
   MemorySudokuGridRepository,
   SudokuGridRepositoryName,
-} from "../core/data-provider/sudoku-grid";
-import { SudokuGridSquares } from "../core/domain/entity/sudoku-grid";
+} from "../data-provider/sudoku-grid";
+import { SudokuGridSquares } from "../domain/entity/sudoku-grid";
 import {
   CreateSudokuGridUsecase,
   CreateSudokuGridUsecaseName,
-} from "../core/domain/usecase/sudoku-grid";
-import { SudokuGridRepository } from "../core/domain/usecase/sudoku-grid/sudoku-grid-repository";
-import { Usecase } from "../core/domain/usecase/usecase";
+} from "../domain/usecase/sudoku-grid";
+import { SudokuGridRepository } from "../domain/usecase/sudoku-grid/sudoku-grid-repository";
+import { Usecase } from "../domain/usecase/usecase";
 
 decorate(injectable(), MemorySudokuGridRepository);
 decorate(injectable(), CreateSudokuGridUsecase);
