@@ -88,7 +88,9 @@ export class SudokuGrid {
   }
 
   private *row(rowIndex: number): IterableIterator<SudokuSquare> {
-    return this._gridSquares[rowIndex];
+    for (let columnIndex = 0; columnIndex < 9; columnIndex++) {
+      yield this._gridSquares[rowIndex][columnIndex];
+    }
   }
 
   private *column(columnIndex: number): IterableIterator<SudokuSquare> {
