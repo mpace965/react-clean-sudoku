@@ -1,10 +1,10 @@
-import { InvalidGridError } from "../error/InvalidGridError";
-import { InvalidSquareError } from "../error/InvalidSquareError";
+import { InvalidGridError } from "../error/invalid-grid-error";
+import { InvalidSquareError } from "../error/invalid-square-error";
 import {
   FixedSudokuSquare,
   OpenSudokuSquare,
   SudokuSquare,
-} from "./SudokuSquare";
+} from "./sudoku-square";
 
 export class SudokuGrid {
   constructor(private _id: string, private _grid: Array<Array<SudokuSquare>>) {

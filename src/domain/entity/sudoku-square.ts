@@ -1,4 +1,4 @@
-import { InvalidNumberError } from "../error/InvalidNumberError";
+import { InvalidNumberError } from "../error/invalid-number-error";
 
 export type SudokuSquare = FixedSudokuSquare | OpenSudokuSquare;
 
