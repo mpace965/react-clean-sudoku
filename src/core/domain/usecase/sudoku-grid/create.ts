@@ -1,9 +1,13 @@
+import { v4 as uuidv4 } from "uuid";
+import { injectable } from "inversify";
 import { Usecase } from "../usecase";
 import { SudokuGrid, SudokuGridSquares } from "../../entity/sudoku-grid";
 import { SudokuGridRepository } from "./sudoku-grid-repository";
-import { v4 as uuidv4 } from "uuid";
 
-export class CreateSudokuGrid
+export const CreateSudokuGridUsecaseName = "CreateSudokuGridUsecase";
+
+@injectable()
+export class CreateSudokuGridUsecase
   implements Usecase<SudokuGridSquares, Promise<string>> {
   constructor(private _sudokuGridRepository: SudokuGridRepository) {}
 
