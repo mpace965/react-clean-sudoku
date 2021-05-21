@@ -6,15 +6,17 @@ import {
   SudokuSquare,
 } from "./sudoku-square";
 
+export type SudokuGridSquares = Array<Array<SudokuSquare>>;
+
 export class SudokuGrid {
-  constructor(private _id: string, private _grid: Array<Array<SudokuSquare>>) {
-    if (_grid.length !== 9) {
+  constructor(private _id: string, private _gridSquares: SudokuGridSquares) {
+    if (_gridSquares.length !== 9) {
       throw new InvalidGridError(
-        `Column length ${_grid.length} is not valid, which must be 9.`
+        `Column length ${_gridSquares.length} is not valid, which must be 9.`
       );
     }
 
-    _grid.forEach((row: Array<SudokuSquare>, index) => {
+    _gridSquares.forEach((row: Array<SudokuSquare>, index) => {
       if (row.length !== 9) {
         throw new InvalidGridError(
           `Row length ${row.length} of row ${index} is not valid, which must be 9.`
@@ -28,11 +30,11 @@ export class SudokuGrid {
   }
 
   get grid(): ReadonlyArray<ReadonlyArray<Readonly<SudokuSquare>>> {
-    return this._grid;
+    return this._gridSquares;
   }
 
   guess(rowIndex: number, columnIndex: number, value?: number): void {
-    const square = this._grid[rowIndex][columnIndex];
+    const square = this._gridSquares[rowIndex][columnIndex];
 
     if (square instanceof FixedSudokuSquare) {
       throw new InvalidSquareError(
@@ -86,12 +88,12 @@ export class SudokuGrid {
   }
 
   private *row(rowIndex: number): IterableIterator<SudokuSquare> {
-    return this._grid[rowIndex];
+    return this._gridSquares[rowIndex];
   }
 
   private *column(columnIndex: number): IterableIterator<SudokuSquare> {
     for (let rowIndex = 0; rowIndex < 9; rowIndex++) {
-      yield this._grid[rowIndex][columnIndex];
+      yield this._gridSquares[rowIndex][columnIndex];
     }
   }
 
@@ -101,7 +103,9 @@ export class SudokuGrid {
   ): IterableIterator<SudokuSquare> {
     for (let columnOffset = 0; columnOffset < 3; columnOffset++) {
       for (let rowOffset = 0; rowOffset < 3; rowOffset++) {
-        yield this._grid[rowIndex + rowOffset][columnIndex + columnOffset];
+        yield this._gridSquares[rowIndex + rowOffset][
+          columnIndex + columnOffset
+        ];
       }
     }
   }
