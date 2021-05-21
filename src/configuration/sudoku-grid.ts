@@ -1,4 +1,10 @@
-import { ContainerModule, interfaces } from "inversify";
+import {
+  ContainerModule,
+  interfaces,
+  decorate,
+  injectable,
+  inject,
+} from "inversify";
 import {
   MemorySudokuGridRepository,
   SudokuGridRepositoryName,
@@ -11,6 +17,14 @@ import {
 import { SudokuGridRepository } from "../core/domain/usecase/sudoku-grid/sudoku-grid-repository";
 import { Usecase } from "../core/domain/usecase/usecase";
 
+decorate(injectable(), MemorySudokuGridRepository);
+decorate(injectable(), CreateSudokuGridUsecase);
+decorate(
+  inject(SudokuGridRepositoryName) as ParameterDecorator,
+  CreateSudokuGridUsecase,
+  0
+);
+
 export const sudokuGrid = new ContainerModule((bind: interfaces.Bind) => {
   bind<SudokuGridRepository>(SudokuGridRepositoryName).to(
     MemorySudokuGridRepository
@@ -18,9 +32,5 @@ export const sudokuGrid = new ContainerModule((bind: interfaces.Bind) => {
 
   bind<Usecase<SudokuGridSquares, Promise<string>>>(
     CreateSudokuGridUsecaseName
-  ).toDynamicValue((context: interfaces.Context) => {
-    return new CreateSudokuGridUsecase(
-      context.container.get(SudokuGridRepositoryName)
-    );
-  });
+  ).to(CreateSudokuGridUsecase);
 });
