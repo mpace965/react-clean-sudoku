@@ -4,26 +4,7 @@ import { Usecase } from "../../domain/usecase/usecase";
 import { AsyncState } from "./async-state";
 import { HookFactory } from "./hook-factory";
 
-export type UseSudokuGridHook =
-  | PendingUseSudokuGridHook
-  | FulfilledUseSudokuGridHook
-  | RejectedUseSudokuGridHook;
-
-interface PendingUseSudokuGridHook {
-  asyncState: AsyncState.PENDING;
-}
-
-interface FulfilledUseSudokuGridHook {
-  asyncState: AsyncState.FULFILLED;
-  grid: SudokuGrid;
-}
-
-interface RejectedUseSudokuGridHook {
-  asyncState: AsyncState.REJECTED;
-}
-
 export const UseSudokuGridFactoryName = Symbol.for("UseSudokuGridFactory");
-export type UseSudokuGrid = (id: string) => UseSudokuGridHook;
 
 export class UseSudokuGridFactory implements HookFactory<UseSudokuGrid> {
   constructor(private _readSudokuGrid: Usecase<string, Promise<SudokuGrid>>) {}
@@ -48,4 +29,24 @@ export class UseSudokuGridFactory implements HookFactory<UseSudokuGrid> {
       return result;
     };
   }
+}
+
+export type UseSudokuGrid = (id: string) => UseSudokuGridHook;
+
+export type UseSudokuGridHook =
+  | PendingUseSudokuGridHook
+  | FulfilledUseSudokuGridHook
+  | RejectedUseSudokuGridHook;
+
+interface PendingUseSudokuGridHook {
+  asyncState: AsyncState.PENDING;
+}
+
+interface FulfilledUseSudokuGridHook {
+  asyncState: AsyncState.FULFILLED;
+  grid: SudokuGrid;
+}
+
+interface RejectedUseSudokuGridHook {
+  asyncState: AsyncState.REJECTED;
 }
