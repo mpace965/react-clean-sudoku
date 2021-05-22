@@ -1,6 +1,6 @@
 import { Sudoku } from "../../entity/sudoku";
 import { Usecase } from "../usecase";
-import { SudokuRepository } from "./sudoku-repository";
+import { SudokuRepository } from "./repository";
 
 export const PlaySudokuUseCaseName = Symbol.for("PlaySudokuUseCase");
 
@@ -19,12 +19,6 @@ export class PlaySudokuUseCase
 
 export interface PlaySudokuInput {
   id: string;
-  row: number;
-  column: number;
-  value?: number;
-}
-
-export interface SudokuGuess {
   row: number;
   column: number;
   value?: number;

@@ -1,6 +1,6 @@
 import { Sudoku } from "../../entity/sudoku";
 import { Usecase } from "../usecase";
-import { SudokuRepository } from "./sudoku-repository";
+import { SudokuRepository } from "./repository";
 
 export const ReadSudokuUsecaseName = Symbol.for("ReadSudokuUsecase");
 

@@ -5,19 +5,19 @@ import {
   injectable,
   interfaces,
 } from "inversify";
-import { PlaySudokuUseCaseName } from "../domain/usecase/sudoku/play";
-import { ReadSudokuUsecaseName } from "../domain/usecase/sudoku/read";
-import { HookFactory } from "../entrypoint/react/hook-factory";
 import {
-  UseSudokuGame,
-  UseSudokuGameFactory,
-  UseSudokuGameFactoryName,
-} from "../entrypoint/react/use-sudoku-game-factory";
+  PlaySudokuUseCaseName,
+  ReadSudokuUsecaseName,
+} from "../domain/usecase/sudoku";
 import {
+  HookFactory,
   UseSudoku,
   UseSudokuFactory,
   UseSudokuFactoryName,
-} from "../entrypoint/react/use-sudoku-factory";
+  UseSudokuGame,
+  UseSudokuGameFactory,
+  UseSudokuGameFactoryName,
+} from "../entrypoint/react";
 
 decorate(injectable(), UseSudokuFactory);
 decorate(

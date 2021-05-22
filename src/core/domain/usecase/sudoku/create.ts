@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from "uuid";
 import { Usecase } from "../usecase";
 import { Sudoku, SudokuGrid } from "../../entity/sudoku";
-import { SudokuRepository } from "./sudoku-repository";
+import { SudokuRepository } from "./repository";
 
 export const CreateSudokuUsecaseName = Symbol.for("CreateSudokuUsecase");
 

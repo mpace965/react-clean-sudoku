@@ -1,14 +1,12 @@
 import { container } from "../configuration";
 import {
-  UseSudokuGameFactory,
-  UseSudokuGameFactoryName,
-} from "../entrypoint/react/use-sudoku-game-factory";
-import {
   UseSudokuFactory,
   UseSudokuFactoryName,
-} from "../entrypoint/react/use-sudoku-factory";
+  UseSudokuGameFactory,
+  UseSudokuGameFactoryName,
+} from "../entrypoint/react";
 
-export { AsyncState } from "../entrypoint/react/async-state";
+export { AsyncState } from "../entrypoint/react";
 
 export const useSudoku = container
   .get<UseSudokuFactory>(UseSudokuFactoryName)
