@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { SudokuGrid } from "../../domain/entity/sudoku-grid";
 import { Usecase } from "../../domain/usecase/usecase";
-import { AsyncState } from "./AsyncState";
-import { HookFactory } from "./HookFactory";
+import { AsyncState } from "./async-state";
+import { HookFactory } from "./hook-factory";
 
 export type UseSudokuGridHook =
   | PendingUseSudokuGridHook
