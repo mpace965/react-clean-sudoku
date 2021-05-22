@@ -3,10 +3,13 @@ import { Usecase } from "../usecase";
 import { SudokuGrid, SudokuGridSquares } from "../../entity/sudoku-grid";
 import { SudokuGridRepository } from "./sudoku-grid-repository";
 
-export const CreateSudokuGridUsecaseName = "CreateSudokuGridUsecase";
+export const CreateSudokuGridUsecaseName = Symbol.for(
+  "CreateSudokuGridUsecase"
+);
 
 export class CreateSudokuGridUsecase
-  implements Usecase<SudokuGridSquares, Promise<string>> {
+  implements Usecase<SudokuGridSquares, Promise<string>>
+{
   constructor(private _sudokuGridRepository: SudokuGridRepository) {}
 
   async handle(gridSquares: SudokuGridSquares): Promise<string> {

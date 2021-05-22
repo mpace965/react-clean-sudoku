@@ -2,7 +2,7 @@ import { SudokuGrid } from "../../entity/sudoku-grid";
 import { Usecase } from "../usecase";
 import { SudokuGridRepository } from "./sudoku-grid-repository";
 
-export const ReadSudokuGridUsecaseName = "ReadSudokuGridUsecase";
+export const ReadSudokuGridUsecaseName = Symbol.for("ReadSudokuGridUsecase");
 
 export class ReadSudokuGridUsecase
   implements Usecase<string, Promise<SudokuGrid>>

@@ -22,7 +22,7 @@ interface RejectedUseSudokuGridHook {
   asyncState: AsyncState.REJECTED;
 }
 
-export const UseSudokuGridFactoryName = "UseSudokuGridFactory";
+export const UseSudokuGridFactoryName = Symbol.for("UseSudokuGridFactory");
 export type UseSudokuGrid = (id: string) => UseSudokuGridHook;
 
 export class UseSudokuGridFactory implements HookFactory<UseSudokuGrid> {
