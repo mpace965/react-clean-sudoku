@@ -5,17 +5,17 @@ import { useSudokuGame } from './core';
 import { FixedSudokuSquare, OpenSudokuSquare } from './core/domain/entity/sudoku-square';
 
 function App() {
-  const { grid, makeGuess } = useSudokuGame("09b0f4b0-2b45-4beb-89e4-f60cc66cc39a");
+  const { sudoku, makeGuess } = useSudokuGame("09b0f4b0-2b45-4beb-89e4-f60cc66cc39a");
   const [row, setRow] = useState(0);
   const [column, setColumn] = useState(0);
   const [value, setValue] = useState<number>();
 
-  if (grid) {
+  if (sudoku) {
     for (let i = 0; i < 9; i++) {
       let rowString = "";
 
       for (let j = 0; j < 9; j++) {
-        const square = grid.grid[i][j];
+        const square = sudoku.grid[i][j];
         if (square instanceof FixedSudokuSquare) {
           rowString += `${square.value} `;
         }

@@ -1,10 +1,10 @@
-import { SudokuGrid } from "../../../domain/entity/sudoku-grid";
+import { Sudoku } from "../../../domain/entity/sudoku";
 import {
   FixedSudokuSquare,
   OpenSudokuSquare,
 } from "../../../domain/entity/sudoku-square";
 
-export const sampleGrid1 = new SudokuGrid(
+export const sampleSudoku1 = new Sudoku(
   "09b0f4b0-2b45-4beb-89e4-f60cc66cc39a",
   [
     [

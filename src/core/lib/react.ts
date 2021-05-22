@@ -4,14 +4,14 @@ import {
   UseSudokuGameFactoryName,
 } from "../entrypoint/react/use-sudoku-game-factory";
 import {
-  UseSudokuGridFactory,
-  UseSudokuGridFactoryName,
-} from "../entrypoint/react/use-sudoku-grid-factory";
+  UseSudokuFactory,
+  UseSudokuFactoryName,
+} from "../entrypoint/react/use-sudoku-factory";
 
 export { AsyncState } from "../entrypoint/react/async-state";
 
-export const useSudokuGrid = container
-  .get<UseSudokuGridFactory>(UseSudokuGridFactoryName)
+export const useSudoku = container
+  .get<UseSudokuFactory>(UseSudokuFactoryName)
   .hook();
 
 export const useSudokuGame = container

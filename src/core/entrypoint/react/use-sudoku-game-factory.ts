@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { SudokuGrid } from "../../domain/entity/sudoku-grid";
-import { PlaySudokuInput } from "../../domain/usecase/sudoku-grid/play";
+import { Sudoku } from "../../domain/entity/sudoku";
+import { PlaySudokuInput } from "../../domain/usecase/sudoku/play";
 import { Usecase } from "../../domain/usecase/usecase";
 import { HookFactory } from "./hook-factory";
 
@@ -8,34 +8,34 @@ export const UseSudokuGameFactoryName = Symbol.for("UseSudokuGameFactory");
 
 export class UseSudokuGameFactory implements HookFactory<UseSudokuGame> {
   constructor(
-    private _playSudoku: Usecase<PlaySudokuInput, Promise<SudokuGrid>>,
-    private _readSudokuGrid: Usecase<string, Promise<SudokuGrid>>
+    private _readSudoku: Usecase<string, Promise<Sudoku>>,
+    private _playSudoku: Usecase<PlaySudokuInput, Promise<Sudoku>>
   ) {}
 
   hook(): UseSudokuGame {
     return (id: string) => {
-      const [grid, setGrid] = useState<SudokuGrid>();
+      const [sudoku, setSudoku] = useState<Sudoku>();
 
       useEffect(() => {
         (async () => {
-          const grid = await this._readSudokuGrid.handle(id);
-          setGrid(grid);
+          const sudoku = await this._readSudoku.handle(id);
+          setSudoku(sudoku);
         })();
       }, []);
 
       const makeGuess = (row: number, column: number, value?: number) => {
         (async () => {
-          const grid = await this._playSudoku.handle({
+          const sudoku = await this._playSudoku.handle({
             id,
             row,
             column,
             value,
           });
-          setGrid(grid);
+          setSudoku(sudoku);
         })();
       };
 
-      return { grid, makeGuess };
+      return { sudoku, makeGuess };
     };
   }
 }
@@ -43,6 +43,6 @@ export class UseSudokuGameFactory implements HookFactory<UseSudokuGame> {
 export type UseSudokuGame = (id: string) => UseSudokuGameHook;
 
 export interface UseSudokuGameHook {
-  grid?: SudokuGrid;
+  sudoku?: Sudoku;
   makeGuess: (row: number, column: number, value?: number) => void;
 }

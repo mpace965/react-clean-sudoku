@@ -1,8 +1,8 @@
 import { Container } from "inversify";
-import { sudokuGrid } from "./sudoku-grid";
+import { sudoku } from "./sudoku";
 import { react } from "./react";
 
 export const container = new Container();
 
-container.load(sudokuGrid);
+container.load(sudoku);
 container.load(react);

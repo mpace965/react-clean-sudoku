@@ -1,2 +1,1 @@
-export { AsyncState } from "./lib/react";
-export { useSudokuGrid, useSudokuGame } from "./lib/react";
+export { AsyncState, useSudoku, useSudokuGame } from "./lib/react";
