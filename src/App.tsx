@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
-import logo from './logo.svg';
-import './App.css';
-import { useSudokuGame } from './core';
+import React, { useState } from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import { useSudokuGame } from "./core";
 
-function App() {
-  const { grid, makeGuess } = useSudokuGame("09b0f4b0-2b45-4beb-89e4-f60cc66cc39a");
+export function App() {
+  const { grid, makeGuess } = useSudokuGame(
+    "09b0f4b0-2b45-4beb-89e4-f60cc66cc39a"
+  );
   const [row, setRow] = useState(0);
   const [column, setColumn] = useState(0);
   const [value, setValue] = useState<number>();
@@ -20,7 +22,7 @@ function App() {
 
       console.log(rowString);
     }
-    console.log("\n\n")
+    console.log("\n\n");
   }
 
   return (
@@ -46,5 +48,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
