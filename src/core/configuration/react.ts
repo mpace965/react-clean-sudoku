@@ -5,7 +5,7 @@ import {
   injectable,
   interfaces,
 } from "inversify";
-import { ReadSudokuGridUsecase } from "../domain/usecase/sudoku-grid/read";
+import { ReadSudokuGridUsecaseName } from "../domain/usecase/sudoku-grid/read";
 import { HookFactory } from "../entrypoint/react/hook-factory";
 import {
   UseSudokuGrid,
@@ -15,7 +15,7 @@ import {
 
 decorate(injectable(), UseSudokuGridFactory);
 decorate(
-  inject(ReadSudokuGridUsecase) as ParameterDecorator,
+  inject(ReadSudokuGridUsecaseName) as ParameterDecorator,
   UseSudokuGridFactory,
   0
 );
