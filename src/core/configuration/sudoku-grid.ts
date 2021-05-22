@@ -62,7 +62,7 @@ export const sudokuGrid = new ContainerModule((bind: interfaces.Bind) => {
     ReadSudokuGridUsecase
   );
 
-  bind<Usecase<PlaySudokuInput, Promise<void>>>(PlaySudokuUseCaseName).to(
+  bind<Usecase<PlaySudokuInput, Promise<SudokuGrid>>>(PlaySudokuUseCaseName).to(
     PlaySudokuUseCase
   );
 });

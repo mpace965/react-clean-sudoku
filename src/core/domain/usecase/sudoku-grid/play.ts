@@ -5,33 +5,31 @@ import { SudokuGridRepository } from "./sudoku-grid-repository";
 export const PlaySudokuUseCaseName = Symbol.for("PlaySudokuUseCase");
 
 export class PlaySudokuUseCase
-  implements Usecase<PlaySudokuInput, Promise<void>>
+  implements Usecase<PlaySudokuInput, Promise<SudokuGrid>>
 {
   constructor(private _sudokuGridRepository: SudokuGridRepository) {}
 
   async handle({
     id,
-    getNextGuess,
-    displayGrid,
-  }: PlaySudokuInput): Promise<void> {
+    row,
+    column,
+    value,
+  }: PlaySudokuInput): Promise<SudokuGrid> {
     const grid = await this._sudokuGridRepository.read(id);
-
-    while (!grid.isSolved()) {
-      const { row, column, value } = await getNextGuess();
-      grid.guess(row, column, value);
-      await this._sudokuGridRepository.write(grid);
-      displayGrid(grid);
-    }
+    grid.guess(row, column, value);
+    await this._sudokuGridRepository.write(grid);
+    return grid;
   }
 }
 
 export interface PlaySudokuInput {
   id: string;
-  getNextGuess: () => Promise<SudokuGuess>;
-  displayGrid: (grid: SudokuGrid) => void;
+  row: number;
+  column: number;
+  value?: number;
 }
 
-interface SudokuGuess {
+export interface SudokuGuess {
   row: number;
   column: number;
   value?: number;

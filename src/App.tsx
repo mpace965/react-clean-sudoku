@@ -1,21 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { AsyncState, useSudokuGrid } from './core';
+import { useSudokuGame } from './core';
+import { FixedSudokuSquare, OpenSudokuSquare } from './core/domain/entity/sudoku-square';
 
 function App() {
-  const result = useSudokuGrid("09b0f4b0-2b45-4beb-89e4-f60cc66cc39a");
-  let component = undefined;
-  if (result.asyncState === AsyncState.PENDING) {
-    component = <p>Loading</p>
-  }
+  const { grid, makeGuess } = useSudokuGame("09b0f4b0-2b45-4beb-89e4-f60cc66cc39a");
+  const [row, setRow] = useState(0);
+  const [column, setColumn] = useState(0);
+  const [value, setValue] = useState<number>();
 
-  if (result.asyncState === AsyncState.REJECTED) {
-    component = <p>Error</p>
-  }
+  if (grid) {
+    for (let i = 0; i < 9; i++) {
+      let rowString = "";
 
-  if (result.asyncState === AsyncState.FULFILLED) {
-    component = <p>{result.grid.id}</p>
+      for (let j = 0; j < 9; j++) {
+        const square = grid.grid[i][j];
+        if (square instanceof FixedSudokuSquare) {
+          rowString += `${square.value} `;
+        }
+
+        if (square instanceof OpenSudokuSquare) {
+          rowString += `${square.value || '.'} `
+        }
+      }
+
+      console.log(rowString);
+    }
+    console.log("\n\n")
   }
 
   return (
@@ -25,7 +37,10 @@ function App() {
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
-        {component}
+        <input onBlur={(e) => setRow(parseInt(e.target.value))} />
+        <input onBlur={(e) => setColumn(parseInt(e.target.value))} />
+        <input onBlur={(e) => setValue(parseInt(e.target.value))} />
+        <button onClick={() => makeGuess(row, column, value)}>Guess</button>
         <a
           className="App-link"
           href="https://reactjs.org"
