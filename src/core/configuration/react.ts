@@ -1,20 +1,27 @@
-import { ContainerModule, interfaces } from "inversify";
-import { SudokuGrid } from "../domain/entity/sudoku-grid";
-import { CreateSudokuGridUsecaseName } from "../domain/usecase/sudoku-grid";
-import { Usecase } from "../domain/usecase/usecase";
+import {
+  ContainerModule,
+  decorate,
+  inject,
+  injectable,
+  interfaces,
+} from "inversify";
+import { ReadSudokuGridUsecase } from "../domain/usecase/sudoku-grid/read";
+import { HookFactory } from "../entrypoint/react/HookFactory";
 import {
   UseSudokuGrid,
-  useSudokuGridFactory,
-  UseSudokuGridName,
-} from "../entrypoint/react/useSudokuGridFactory";
+  UseSudokuGridFactory,
+  UseSudokuGridFactoryName,
+} from "../entrypoint/react/UseSudokuGridFactory";
+
+decorate(injectable(), UseSudokuGridFactory);
+decorate(
+  inject(ReadSudokuGridUsecase) as ParameterDecorator,
+  UseSudokuGridFactory,
+  0
+);
 
 export const react = new ContainerModule((bind: interfaces.Bind) => {
-  bind<UseSudokuGrid>(UseSudokuGridName).toDynamicValue(
-    (context: interfaces.Context) =>
-      useSudokuGridFactory(
-        context.container.get<Usecase<string, Promise<SudokuGrid>>>(
-          CreateSudokuGridUsecaseName
-        )
-      )
+  bind<HookFactory<UseSudokuGrid>>(UseSudokuGridFactoryName).to(
+    UseSudokuGridFactory
   );
 });

@@ -1,7 +1,9 @@
 import { container } from "../configuration";
 import {
-  UseSudokuGrid,
-  UseSudokuGridName,
-} from "../entrypoint/react/useSudokuGridFactory";
+  UseSudokuGridFactory,
+  UseSudokuGridFactoryName,
+} from "../entrypoint/react/UseSudokuGridFactory";
 
-export const useSudokuGrid = container.get<UseSudokuGrid>(UseSudokuGridName);
+export const useSudokuGrid = container
+  .get<UseSudokuGridFactory>(UseSudokuGridFactoryName)
+  .hook();

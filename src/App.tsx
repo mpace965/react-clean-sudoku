@@ -1,8 +1,10 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { useSudokuGrid } from './core';
 
 function App() {
+  const { grid } = useSudokuGrid("09b0f4b0-2b45-4beb-89e4-f60cc66cc39a");
   return (
     <div className="App">
       <header className="App-header">
@@ -10,6 +12,7 @@ function App() {
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
+        {grid && <p>{grid.id}</p>}
         <a
           className="App-link"
           href="https://reactjs.org"
