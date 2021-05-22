@@ -1,32 +1,30 @@
 import { useState } from "react";
-import { SudokuGridSquares } from "../../domain/entity/sudoku-grid";
+import { SudokuGrid } from "../../domain/entity/sudoku-grid";
 import { Usecase } from "../../domain/usecase/usecase";
 
 interface UseSudokuGridHook {
-  gridId?: string;
+  grid?: SudokuGrid;
 }
 
 export const UseSudokuGridName = "useSudokuGrid";
 export type UseSudokuGrid = ReturnType<typeof useSudokuGridFactory>;
 
 export function useSudokuGridFactory(
-  createSudokuGrid: Usecase<SudokuGridSquares, Promise<string>>
+  readSudokuGrid: Usecase<string, Promise<SudokuGrid>>
 ) {
-  return function useSudokuGrid(
-    gridSquares: SudokuGridSquares
-  ): UseSudokuGridHook {
-    const [gridId, setGridId] = useState<string | undefined>(undefined);
+  return function useSudokuGrid(id: string): UseSudokuGridHook {
+    const [grid, setGrid] = useState<SudokuGrid | undefined>(undefined);
     const [fetching, setFetching] = useState(false);
 
-    if (!gridId && !fetching) {
+    if (!grid && !fetching) {
       setFetching(true);
       (async () => {
-        const newGridId = await createSudokuGrid.handle(gridSquares);
-        setGridId(newGridId);
+        const newGrid = await readSudokuGrid.handle(id);
+        setGrid(newGrid);
         setFetching(false);
       })();
     }
 
-    return { gridId };
+    return { grid };
   };
 }
