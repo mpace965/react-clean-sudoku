@@ -40,9 +40,9 @@ export class UseSudokuGameFactory implements HookFactory<UseSudokuGame> {
   }
 }
 
-export type UseSudokuGame = (id: string) => UseSudokuGameHook;
+export type UseSudokuGame = (id: string) => UseSudokuGameResult;
 
-export interface UseSudokuGameHook {
+interface UseSudokuGameResult {
   sudoku?: Sudoku;
   makeGuess: (row: number, column: number, value?: number) => void;
 }
