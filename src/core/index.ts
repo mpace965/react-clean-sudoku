@@ -1,1 +1,1 @@
-export { AsyncState, useSudoku, useSudokuGame } from "./lib/react";
+export { useSudokuGame } from "./lib/react";
