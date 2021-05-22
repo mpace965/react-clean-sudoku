@@ -1,11 +1,11 @@
-import { InvalidNumberError } from "../error/invalid-number-error";
+import { ArgumentError } from "../error/argument-error";
 
 export type SudokuSquare = FixedSudokuSquare | OpenSudokuSquare;
 
 export class FixedSudokuSquare {
   constructor(private _value: number) {
     if (!isSudokuNumber(_value)) {
-      throw new InvalidNumberError(
+      throw new ArgumentError(
         `Value ${_value} is not a valid sudoku number, which must be an integer between 1 and 9, inclusive.`
       );
     }
@@ -19,7 +19,7 @@ export class FixedSudokuSquare {
 export class OpenSudokuSquare {
   constructor(private _value?: number) {
     if (_value && !isSudokuNumber(_value)) {
-      throw new InvalidNumberError(
+      throw new ArgumentError(
         `Value ${_value} is not a valid sudoku number, which must be an integer between 1 and 9, inclusive.`
       );
     }
@@ -31,7 +31,7 @@ export class OpenSudokuSquare {
 
   set value(value: number | undefined) {
     if (value && !isSudokuNumber(value)) {
-      throw new InvalidNumberError(
+      throw new ArgumentError(
         `Value ${value} is not a valid sudoku number, which must be an integer between 1 and 9, inclusive.`
       );
     }

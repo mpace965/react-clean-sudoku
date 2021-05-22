@@ -1,5 +1,4 @@
-import { InvalidGridError } from "../error/invalid-grid-error";
-import { InvalidSquareError } from "../error/invalid-square-error";
+import { ArgumentError } from "../error/argument-error";
 import {
   FixedSudokuSquare,
   OpenSudokuSquare,
@@ -11,14 +10,14 @@ export type SudokuGridSquares = Array<Array<SudokuSquare>>;
 export class SudokuGrid {
   constructor(private _id: string, private _gridSquares: SudokuGridSquares) {
     if (_gridSquares.length !== 9) {
-      throw new InvalidGridError(
+      throw new ArgumentError(
         `Column length ${_gridSquares.length} is not valid, which must be 9.`
       );
     }
 
     _gridSquares.forEach((row: Array<SudokuSquare>, index) => {
       if (row.length !== 9) {
-        throw new InvalidGridError(
+        throw new ArgumentError(
           `Row length ${row.length} of row ${index} is not valid, which must be 9.`
         );
       }
@@ -37,7 +36,7 @@ export class SudokuGrid {
     const square = this._gridSquares[rowIndex][columnIndex];
 
     if (square instanceof FixedSudokuSquare) {
-      throw new InvalidSquareError(
+      throw new ArgumentError(
         `A guess cannot be made for the square at (${rowIndex}, ${columnIndex}), which is fixed.`
       );
     }
