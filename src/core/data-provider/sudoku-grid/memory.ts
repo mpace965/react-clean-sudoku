@@ -8,7 +8,7 @@ export class MemorySudokuGridRepository implements SudokuGridRepository {
     [sampleGrid1.id]: sampleGrid1,
   };
 
-  async create(sudokuGrid: SudokuGrid): Promise<void> {
+  async write(sudokuGrid: SudokuGrid): Promise<void> {
     this._repo[sudokuGrid.id] = sudokuGrid;
   }
 

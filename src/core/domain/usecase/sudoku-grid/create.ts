@@ -15,7 +15,7 @@ export class CreateSudokuGridUsecase
   async handle(gridSquares: SudokuGridSquares): Promise<string> {
     const sudokuGrid = new SudokuGrid(uuidv4(), gridSquares);
 
-    await this._sudokuGridRepository.create(sudokuGrid);
+    await this._sudokuGridRepository.write(sudokuGrid);
 
     return sudokuGrid.id;
   }
