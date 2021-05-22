@@ -1,3 +1,3 @@
-export interface Usecase<TInput, TOutput> {
-  handle(input: TInput): TOutput;
+export interface Usecase<TFunction extends (...args: Array<any>) => any> {
+  handle: TFunction;
 }

@@ -8,7 +8,7 @@ import { Grid } from "../../entity/grid";
 export const CreateSudokuUsecaseName = Symbol.for("CreateSudokuUsecase");
 
 export class CreateSudokuUsecase
-  implements Usecase<Grid<SudokuSquare>, Promise<string>>
+  implements Usecase<CreateSudokuUsecaseHandler>
 {
   constructor(private _sudokuRepository: SudokuRepository) {}
 
@@ -20,3 +20,6 @@ export class CreateSudokuUsecase
     return sudoku.id;
   }
 }
+
+export type CreateSudokuUsecaseHandler =
+  typeof CreateSudokuUsecase.prototype.handle;

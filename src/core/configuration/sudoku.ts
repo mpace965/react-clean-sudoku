@@ -9,16 +9,15 @@ import {
   MemorySudokuRepository,
   SudokuRepositoryName,
 } from "../data-provider/sudoku";
-import { Grid } from "../domain/entity/grid";
-import { Sudoku } from "../domain/entity/sudoku";
-import { SudokuSquare } from "../domain/entity/sudoku-square";
 import {
   CreateSudokuUsecase,
+  CreateSudokuUsecaseHandler,
   CreateSudokuUsecaseName,
-  PlaySudokuInput,
   PlaySudokuUseCase,
+  PlaySudokuUseCaseHandler,
   PlaySudokuUseCaseName,
   ReadSudokuUsecase,
+  ReadSudokuUsecaseHandler,
   ReadSudokuUsecaseName,
   SudokuRepository,
 } from "../domain/usecase/sudoku";
@@ -50,15 +49,15 @@ decorate(
 export const sudoku = new ContainerModule((bind: interfaces.Bind) => {
   bind<SudokuRepository>(SudokuRepositoryName).to(MemorySudokuRepository);
 
-  bind<Usecase<Grid<SudokuSquare>, Promise<string>>>(
-    CreateSudokuUsecaseName
-  ).to(CreateSudokuUsecase);
+  bind<Usecase<CreateSudokuUsecaseHandler>>(CreateSudokuUsecaseName).to(
+    CreateSudokuUsecase
+  );
 
-  bind<Usecase<PlaySudokuInput, Promise<Sudoku>>>(PlaySudokuUseCaseName).to(
+  bind<Usecase<PlaySudokuUseCaseHandler>>(PlaySudokuUseCaseName).to(
     PlaySudokuUseCase
   );
 
-  bind<Usecase<string, Promise<Sudoku>>>(ReadSudokuUsecaseName).to(
+  bind<Usecase<ReadSudokuUsecaseHandler>>(ReadSudokuUsecaseName).to(
     ReadSudokuUsecase
   );
 });

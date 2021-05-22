@@ -4,12 +4,15 @@ import { SudokuRepository } from "./repository";
 
 export const PlaySudokuUseCaseName = Symbol.for("PlaySudokuUseCase");
 
-export class PlaySudokuUseCase
-  implements Usecase<PlaySudokuInput, Promise<Sudoku>>
-{
+export class PlaySudokuUseCase implements Usecase<PlaySudokuUseCaseHandler> {
   constructor(private _sudokuRepository: SudokuRepository) {}
 
-  async handle({ id, row, column, value }: PlaySudokuInput): Promise<Sudoku> {
+  async handle(
+    id: string,
+    row: number,
+    column: number,
+    value?: number
+  ): Promise<Sudoku> {
     const sudoku = await this._sudokuRepository.read(id);
     sudoku.guess(row, column, value);
     await this._sudokuRepository.write(sudoku);
@@ -17,9 +20,5 @@ export class PlaySudokuUseCase
   }
 }
 
-export interface PlaySudokuInput {
-  id: string;
-  row: number;
-  column: number;
-  value?: number;
-}
+export type PlaySudokuUseCaseHandler =
+  typeof PlaySudokuUseCase.prototype.handle;

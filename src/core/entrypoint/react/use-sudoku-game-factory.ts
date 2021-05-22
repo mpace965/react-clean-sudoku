@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import { ReadonlyGrid } from "../../domain/entity/grid";
 import { Sudoku } from "../../domain/entity/sudoku";
-import { PlaySudokuInput } from "../../domain/usecase/sudoku/play";
+import {
+  PlaySudokuUseCaseHandler,
+  ReadSudokuUsecaseHandler,
+} from "../../domain/usecase/sudoku";
 import { Usecase } from "../../domain/usecase/usecase";
 import { HookFactory } from "./hook-factory";
 
@@ -9,8 +12,8 @@ export const UseSudokuGameFactoryName = Symbol.for("UseSudokuGameFactory");
 
 export class UseSudokuGameFactory implements HookFactory<UseSudokuGame> {
   constructor(
-    private _readSudoku: Usecase<string, Promise<Sudoku>>,
-    private _playSudoku: Usecase<PlaySudokuInput, Promise<Sudoku>>
+    private _readSudoku: Usecase<ReadSudokuUsecaseHandler>,
+    private _playSudoku: Usecase<PlaySudokuUseCaseHandler>
   ) {}
 
   hook(): UseSudokuGame {
@@ -26,12 +29,7 @@ export class UseSudokuGameFactory implements HookFactory<UseSudokuGame> {
 
       const makeGuess = (row: number, column: number, value?: number) => {
         (async () => {
-          const sudoku = await this._playSudoku.handle({
-            id,
-            row,
-            column,
-            value,
-          });
+          const sudoku = await this._playSudoku.handle(id, row, column, value);
           setSudoku(sudoku);
         })();
       };
@@ -44,7 +42,7 @@ export class UseSudokuGameFactory implements HookFactory<UseSudokuGame> {
     };
   }
 
-  static convertSudoku(sudoku: Sudoku): ReadonlyGrid<SudokuSquareView> {
+  private static convertSudoku(sudoku: Sudoku): ReadonlyGrid<SudokuSquareView> {
     return sudoku.grid.map((row) =>
       row.map((square) => ({ label: square.value?.toString() || "." }))
     );
