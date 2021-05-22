@@ -2,27 +2,20 @@ import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { useSudokuGame } from './core';
-import { FixedSudokuSquare, OpenSudokuSquare } from './core/domain/entity/sudoku-square';
 
 function App() {
-  const { sudoku, makeGuess } = useSudokuGame("09b0f4b0-2b45-4beb-89e4-f60cc66cc39a");
+  const { grid, makeGuess } = useSudokuGame("09b0f4b0-2b45-4beb-89e4-f60cc66cc39a");
   const [row, setRow] = useState(0);
   const [column, setColumn] = useState(0);
   const [value, setValue] = useState<number>();
 
-  if (sudoku) {
+  if (grid) {
     for (let i = 0; i < 9; i++) {
       let rowString = "";
 
       for (let j = 0; j < 9; j++) {
-        const square = sudoku.grid[i][j];
-        if (square instanceof FixedSudokuSquare) {
-          rowString += `${square.value} `;
-        }
-
-        if (square instanceof OpenSudokuSquare) {
-          rowString += `${square.value || '.'} `
-        }
+        const square = grid[i][j];
+        rowString += `${square.label} `;
       }
 
       console.log(rowString);

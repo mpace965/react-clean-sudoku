@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { ReadonlyGrid } from "../../domain/entity/grid";
 import { Sudoku } from "../../domain/entity/sudoku";
 import { PlaySudokuInput } from "../../domain/usecase/sudoku/play";
 import { Usecase } from "../../domain/usecase/usecase";
@@ -35,14 +36,28 @@ export class UseSudokuGameFactory implements HookFactory<UseSudokuGame> {
         })();
       };
 
-      return { sudoku, makeGuess };
+      const grid = sudoku
+        ? UseSudokuGameFactory.convertSudoku(sudoku)
+        : undefined;
+
+      return { grid, makeGuess };
     };
+  }
+
+  static convertSudoku(sudoku: Sudoku): ReadonlyGrid<SudokuSquareView> {
+    return sudoku.grid.map((row) =>
+      row.map((square) => ({ label: square.value?.toString() || "." }))
+    );
   }
 }
 
 export type UseSudokuGame = (id: string) => UseSudokuGameResult;
 
 interface UseSudokuGameResult {
-  sudoku?: Sudoku;
+  grid?: ReadonlyGrid<SudokuSquareView>;
   makeGuess: (row: number, column: number, value?: number) => void;
+}
+
+interface SudokuSquareView {
+  label: string;
 }

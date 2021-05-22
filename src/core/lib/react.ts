@@ -1,9 +1,10 @@
 import { container } from "../configuration";
 import {
-  UseSudokuGameFactory,
+  HookFactory,
+  UseSudokuGame,
   UseSudokuGameFactoryName,
 } from "../entrypoint/react";
 
 export const useSudokuGame = container
-  .get<UseSudokuGameFactory>(UseSudokuGameFactoryName)
+  .get<HookFactory<UseSudokuGame>>(UseSudokuGameFactoryName)
   .hook();

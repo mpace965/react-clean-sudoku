@@ -9,7 +9,9 @@ import {
   MemorySudokuRepository,
   SudokuRepositoryName,
 } from "../data-provider/sudoku";
-import { Sudoku, SudokuGrid } from "../domain/entity/sudoku";
+import { Grid } from "../domain/entity/grid";
+import { Sudoku } from "../domain/entity/sudoku";
+import { SudokuSquare } from "../domain/entity/sudoku-square";
 import {
   CreateSudokuUsecase,
   CreateSudokuUsecaseName,
@@ -48,9 +50,9 @@ decorate(
 export const sudoku = new ContainerModule((bind: interfaces.Bind) => {
   bind<SudokuRepository>(SudokuRepositoryName).to(MemorySudokuRepository);
 
-  bind<Usecase<SudokuGrid, Promise<string>>>(CreateSudokuUsecaseName).to(
-    CreateSudokuUsecase
-  );
+  bind<Usecase<Grid<SudokuSquare>, Promise<string>>>(
+    CreateSudokuUsecaseName
+  ).to(CreateSudokuUsecase);
 
   bind<Usecase<PlaySudokuInput, Promise<Sudoku>>>(PlaySudokuUseCaseName).to(
     PlaySudokuUseCase

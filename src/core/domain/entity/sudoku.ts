@@ -1,14 +1,13 @@
 import { ArgumentError } from "../error/argument-error";
+import { Grid, ReadonlyGrid } from "./grid";
 import {
   FixedSudokuSquare,
   OpenSudokuSquare,
   SudokuSquare,
 } from "./sudoku-square";
 
-export type SudokuGrid = Array<Array<SudokuSquare>>;
-
 export class Sudoku {
-  constructor(private _id: string, private _grid: SudokuGrid) {
+  constructor(private _id: string, private _grid: Grid<SudokuSquare>) {
     if (_grid.length !== 9) {
       throw new ArgumentError(
         `Column length ${_grid.length} is not valid, which must be 9.`
@@ -28,7 +27,7 @@ export class Sudoku {
     return this._id;
   }
 
-  get grid(): ReadonlyArray<ReadonlyArray<Readonly<SudokuSquare>>> {
+  get grid(): ReadonlyGrid<SudokuSquare> {
     return this._grid;
   }
 
