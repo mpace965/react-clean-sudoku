@@ -1,10 +1,25 @@
 import { useState } from "react";
 import { SudokuGrid } from "../../domain/entity/sudoku-grid";
 import { Usecase } from "../../domain/usecase/usecase";
+import { AsyncState } from "./AsyncState";
 import { HookFactory } from "./HookFactory";
 
-interface UseSudokuGridHook {
-  grid?: SudokuGrid;
+export type UseSudokuGridHook =
+  | PendingUseSudokuGridHook
+  | FulfilledUseSudokuGridHook
+  | RejectedUseSudokuGridHook;
+
+interface PendingUseSudokuGridHook {
+  asyncState: AsyncState.PENDING;
+}
+
+interface FulfilledUseSudokuGridHook {
+  asyncState: AsyncState.FULFILLED;
+  grid: SudokuGrid;
+}
+
+interface RejectedUseSudokuGridHook {
+  asyncState: AsyncState.REJECTED;
 }
 
 export const UseSudokuGridFactoryName = "UseSudokuGridFactory";
@@ -15,19 +30,22 @@ export class UseSudokuGridFactory implements HookFactory<UseSudokuGrid> {
 
   hook(): UseSudokuGrid {
     return (id: string): UseSudokuGridHook => {
-      const [grid, setGrid] = useState<SudokuGrid | undefined>(undefined);
-      const [fetching, setFetching] = useState(false);
+      const [result, setResult] = useState<UseSudokuGridHook>({
+        asyncState: AsyncState.PENDING,
+      });
 
-      if (!grid && !fetching) {
-        setFetching(true);
+      if (result.asyncState === AsyncState.PENDING) {
         (async () => {
-          const newGrid = await this._readSudokuGrid.handle(id);
-          setGrid(newGrid);
-          setFetching(false);
+          try {
+            const grid = await this._readSudokuGrid.handle(id);
+            setResult({ asyncState: AsyncState.FULFILLED, grid });
+          } catch (e) {
+            setResult({ asyncState: AsyncState.REJECTED });
+          }
         })();
       }
 
-      return { grid };
+      return result;
     };
   }
 }
