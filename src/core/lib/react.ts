@@ -1,10 +1,16 @@
 import { container } from "../configuration";
 import {
-  HookFactory,
-  UseSudokuGame,
-  UseSudokuGameFactoryName,
+  PlaySudokuUseCaseName,
+  ReadSudokuUsecaseName,
+} from "../domain/usecase/sudoku";
+import {
+  useSudokuGame as _useSudokuGame,
+  UseSudokuGameResult,
 } from "../entrypoint/react";
 
-export const useSudokuGame = container
-  .get<HookFactory<UseSudokuGame>>(UseSudokuGameFactoryName)
-  .hook();
+export const useSudokuGame = (id: string): UseSudokuGameResult =>
+  _useSudokuGame(
+    container.get(ReadSudokuUsecaseName),
+    container.get(PlaySudokuUseCaseName),
+    id
+  );
