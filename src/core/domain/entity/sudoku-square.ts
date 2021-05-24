@@ -30,7 +30,7 @@ export class OpenSudokuSquare {
   }
 
   set value(value: number | undefined) {
-    if (value && !isSudokuNumber(value)) {
+    if (value !== undefined && !isSudokuNumber(value)) {
       throw new ArgumentError(
         `Value ${value} is not a valid sudoku number, which must be an integer between 1 and 9, inclusive.`
       );
