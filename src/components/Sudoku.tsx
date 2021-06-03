@@ -2,6 +2,7 @@ import React from "react";
 import "./Sudoku.css";
 import { ReadonlyGrid, SudokuSquareView } from "../core";
 import { SudokuSquare } from "./SudokuSquare";
+import { useArrowKeyNavigation } from "../hooks/useArrowKeyNavigation";
 
 export interface SudokuProps {
   onGuess: (rowIndex: number, columnIndex: number, guess?: string) => void;
@@ -10,6 +11,8 @@ export interface SudokuProps {
 
 export function Sudoku(props: SudokuProps): JSX.Element {
   const { grid, onGuess } = props;
+
+  useArrowKeyNavigation(".sudoku-square");
 
   const rows = grid.map(
     (row: ReadonlyArray<SudokuSquareView>, rowIndex: number) => {
