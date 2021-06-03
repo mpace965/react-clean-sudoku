@@ -14,3 +14,8 @@ export const useSudokuGame = (id: string): UseSudokuGameResult =>
     container.get(PlaySudokuUseCaseName),
     id
   );
+
+export type {
+  UseSudokuGameResult,
+  SudokuSquareView,
+} from "../entrypoint/react";

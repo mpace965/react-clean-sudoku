@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { ReadonlyGrid } from "../../domain/entity/grid";
 import { Sudoku } from "../../domain/entity/sudoku";
+import { FixedSudokuSquare } from "../../domain/entity/sudoku-square";
 import {
   PlaySudokuUseCaseHandler,
   ReadSudokuUsecaseHandler,
@@ -19,11 +20,17 @@ export function useSudokuGame(
       const sudoku = await _readSudoku.handle(id);
       setSudoku(sudoku);
     })();
+    // eslint-disable-next-line
   }, []);
 
-  const makeGuess = (row: number, column: number, value?: number) => {
+  const makeGuess = (row: number, column: number, value?: string) => {
     (async () => {
-      const sudoku = await _playSudoku.handle(id, row, column, value);
+      const sudoku = await _playSudoku.handle(
+        id,
+        row,
+        column,
+        value ? parseInt(value) : undefined
+      );
       setSudoku(sudoku);
     })();
   };
@@ -35,15 +42,19 @@ export function useSudokuGame(
 
 function convertSudoku(sudoku: Sudoku): ReadonlyGrid<SudokuSquareView> {
   return sudoku.grid.map((row) =>
-    row.map((square) => ({ label: square.value?.toString() || "." }))
+    row.map((square) => ({
+      number: square.value ? square.value.toString() : "",
+      readOnly: square instanceof FixedSudokuSquare,
+    }))
   );
 }
 
 export interface UseSudokuGameResult {
   grid?: ReadonlyGrid<SudokuSquareView>;
-  makeGuess: (row: number, column: number, value?: number) => void;
+  makeGuess: (row: number, column: number, value?: string) => void;
 }
 
-interface SudokuSquareView {
-  label: string;
+export interface SudokuSquareView {
+  number?: string;
+  readOnly: boolean;
 }
