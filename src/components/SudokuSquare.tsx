@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import classNames from "classnames";
+import "./SudokuSquare.css";
 
 export interface SudokuSquareProps {
   onGuess: (guess?: string) => void;
@@ -36,6 +38,7 @@ export function SudokuSquare(props: SudokuSquareProps): JSX.Element {
 
   return (
     <input
+      className={classNames({ "sudoku-square": true, readonly: readOnly })}
       inputMode="numeric"
       pattern="[1-9]"
       readOnly={readOnly}

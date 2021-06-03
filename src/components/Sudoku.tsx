@@ -1,4 +1,5 @@
 import React from "react";
+import "./Sudoku.css";
 import { ReadonlyGrid, SudokuSquareView } from "../core";
 import { SudokuSquare } from "./SudokuSquare";
 
@@ -23,9 +24,13 @@ export function Sudoku(props: SudokuProps): JSX.Element {
           );
         }
       );
-      return <div key={rowIndex}>{squares}</div>;
+      return (
+        <div className="sudoku-row" key={rowIndex}>
+          {squares}
+        </div>
+      );
     }
   );
 
-  return <div>{rows}</div>;
+  return <div className="sudoku">{rows}</div>;
 }

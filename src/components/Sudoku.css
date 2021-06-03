@@ -1,0 +1,11 @@
+.sudoku {
+  border: 2px solid black;
+}
+
+.sudoku-row {
+  display: flex;
+}
+
+.sudoku-row:nth-child(3n + 1) {
+  border-top: 2px solid black;
+}

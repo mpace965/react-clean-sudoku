@@ -1,4 +1,5 @@
 import React from "react";
+import "./App.css";
 import { useSudokuGame } from "./core";
 import { Sudoku } from "./components/Sudoku";
 
@@ -12,5 +13,5 @@ export function App() {
     sudoku = <Sudoku grid={grid} onGuess={makeGuess} />;
   }
 
-  return <div className="App">{sudoku}</div>;
+  return <div className="app">{sudoku}</div>;
 }
