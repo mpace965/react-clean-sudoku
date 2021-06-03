@@ -15,8 +15,9 @@
   background-blend-mode: darken;
 }
 
-.sudoku-square:nth-child(3n + 1) {
-  border-left: 2px solid black;
+.sudoku-square:nth-child(3),
+.sudoku-square:nth-child(6) {
+  border-right: 2px solid black;
 }
 
 .sudoku-square::selection {
