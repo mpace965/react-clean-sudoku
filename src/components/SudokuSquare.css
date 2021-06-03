@@ -25,4 +25,5 @@
 
 .readonly {
   background-image: linear-gradient(#eeeeee 0 0);
+  cursor: not-allowed;
 }
