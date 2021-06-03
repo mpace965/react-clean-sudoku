@@ -16,21 +16,21 @@ export function SudokuSquare(props: SudokuSquareProps): JSX.Element {
 
   const [value, setValue] = useState(number);
 
-  function onChange(event?: React.ChangeEvent<HTMLInputElement>): void {
+  function onKeyDown(event?: React.KeyboardEvent<HTMLInputElement>): void {
     if (!readOnly && event) {
-      const { value: eventValue } = event.target;
+      const { key } = event;
 
-      if (eventValue === "") {
-        setValue(eventValue);
+      if (key === "Backspace" || key === "Delete") {
+        setValue("");
         onGuess(undefined);
         return;
       }
 
-      const numberValue = parseInt(eventValue);
+      const numberValue = parseInt(key);
 
       if (!isNaN(numberValue) && 1 <= numberValue && numberValue <= 9) {
-        setValue(eventValue);
-        onGuess(eventValue);
+        setValue(key);
+        onGuess(key);
         return;
       }
     }
@@ -43,7 +43,8 @@ export function SudokuSquare(props: SudokuSquareProps): JSX.Element {
       pattern="[1-9]"
       readOnly={readOnly}
       value={value}
-      onChange={onChange}
+      onKeyDown={onKeyDown}
+      onChange={() => {}} // Silence "no onChange with a value prop" warning
     />
   );
 }

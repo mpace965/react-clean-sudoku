@@ -7,6 +7,7 @@
   border: none;
   border: 1px solid #767676;
   outline: none;
+  caret-color: transparent;
 }
 
 .sudoku-square:focus {
