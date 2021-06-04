@@ -17,6 +17,10 @@ export function useArrowKeyNavigation(initialElementSelector?: string) {
 }
 
 function eventListener(event: KeyboardEvent): void {
+  if (event.key === "Tab") {
+    event.preventDefault();
+  }
+
   if (event.key === "ArrowUp") {
     navigateVertical("up");
   }
