@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
-import { useSudokuGame } from "./core";
-import { Sudoku } from "./components/Sudoku";
+import { useSudokuGame } from "../core";
+import { Sudoku } from "./Sudoku";
 
 export function App() {
   const { grid, makeGuess } = useSudokuGame(
