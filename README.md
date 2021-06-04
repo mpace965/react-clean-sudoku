@@ -2,6 +2,8 @@
 
 An implementation of [sudoku](https://en.wikipedia.org/wiki/Sudoku) using the principles of [Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html).
 
+![./sudoku.png]
+
 ## Usage
 
 This repo uses the [Create React App](https://create-react-app.dev/) [TypeScript template](https://create-react-app.dev/docs/adding-typescript/). To run locally, simply run `yarn install` and `yarn start`.
