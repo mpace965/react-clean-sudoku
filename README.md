@@ -2,7 +2,7 @@
 
 An implementation of [sudoku](https://en.wikipedia.org/wiki/Sudoku) using the principles of [Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html).
 
-![./sudoku.png]
+![screenshot](./sudoku.png)
 
 ## Usage
 
