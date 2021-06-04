@@ -8,6 +8,7 @@
   border: 1px solid #767676;
   outline: none;
   caret-color: transparent;
+  cursor: pointer;
 }
 
 .sudoku-square:focus {
@@ -26,5 +27,4 @@
 
 .readonly {
   background-image: linear-gradient(#eeeeee 0 0);
-  cursor: not-allowed;
 }
